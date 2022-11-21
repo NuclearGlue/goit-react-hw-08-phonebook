@@ -1,41 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import {
-  newUser,
-  userLogin,
-  userLogout,
-  userInfo,
-} from '../contacts/operations';
+import { newUser, userLogin, userLogout } from '../contacts/operations';
 
-const handlePending = state => {
-  state.isLoading = true;
+const initialState = {
+  user: { name: null, email: null },
+  token: null,
+  isLoggedIn: false,
 };
 
-const handleRejected = (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload;
-};
-
-const userSlise = createSlice({
+const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    user: {
-      id: '',
-      name: '',
-      email: '',
-      password: '',
-    },
-    isLoading: false,
-    error: null,
-  },
-
+  initialState,
   extraReducers: {
-    [userLogin.pending]: handlePending,
-    [userLogin.fulfilled](state, action) {
-      state.isLoading = false;
-      state.error = null;
-      state.user = action.payload;
+    [newUser.fulfilled](state, action) {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
     },
-    [userLogin.rejected]: handleRejected,
+    [userLogin.fulfilled](state, action) {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+    },
+    [userLogout.fulfilled](state) {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLoggedIn = false;
+    },
   },
 });
+
+export const userReducer = userSlice.reducer;

@@ -8,7 +8,7 @@ import { Routes, Route , Link} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/contacts/operations';
-import { getError, getIsLoading } from 'redux/selectors';
+import { getError, getIsLoading } from 'redux/contacts/selectors';
 
 export const App = () => {
   const dispatch = useDispatch();

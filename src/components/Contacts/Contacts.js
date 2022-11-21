@@ -1,7 +1,7 @@
 import React from 'react';
 import AddContactsForm from './AddContactsForm';
 import { useSelector } from 'react-redux';
-import { getContacts, getFilter } from 'redux/selectors';
+import { getContacts, getFilter } from 'redux/contacts/selectors';
 
 import { Contact } from './Contact';
 const getVisibleContacts = (contacts, filter) => {
