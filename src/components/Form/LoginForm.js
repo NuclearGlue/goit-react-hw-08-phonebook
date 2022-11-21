@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/operations';
-import { getContacts } from 'redux/selectors';
-import { useSelector } from 'react-redux';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -10,19 +7,13 @@ const LoginForm = () => {
 
   const dispatch = useDispatch();
 
-  let names = useSelector(getContacts).map(contact =>
-    contact.name.toLowerCase()
-  );
+  // let names = useSelector(getContacts).map(contact =>
+  //   contact.name.toLowerCase()
+  // );
 
   const handleSubmit = event => {
     event.preventDefault();
-
-    // if (names.includes(name.toLowerCase())) {
-    //   alert(`${name} is already in contact`);
-    // } else {
-    //   dispatch(addContact({ name, number }));
-    //   reset();
-    // }
+    reset();
   };
 
   const reset = () => {

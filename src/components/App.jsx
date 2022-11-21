@@ -1,11 +1,13 @@
-import Form from './Form/LoginForm';
+import LoginForm from './Form/LoginForm';
 import Contacts from './Contacts/Contacts';
 import Filter from './Filter/Filter';
+import RegisterForm from './Form/RegisterForm';
+import { NotFound } from './NotFound.js/NotFound';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route , Link} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchContacts } from 'redux/operations';
+import { fetchContacts } from 'redux/contacts/operations';
 import { getError, getIsLoading } from 'redux/selectors';
 
 export const App = () => {
@@ -19,6 +21,11 @@ export const App = () => {
 
   return (
     <div>
+      <nav>
+  <Link to="/register">Registraton</Link>
+  <Link to="/login">Log in</Link>
+  <Link to="/contacts">Contacts</Link>
+</nav>
       <Routes>
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />

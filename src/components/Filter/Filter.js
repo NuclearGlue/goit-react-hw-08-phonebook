@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { changeFilter } from 'redux/filtersSlice';
+import { changeFilter } from 'redux/contacts/filtersSlice';
 
 export default function Filter() {
   const [filter, setFilter] = useState('');
