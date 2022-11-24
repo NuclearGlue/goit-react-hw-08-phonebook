@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { changesFilter } from 'redux/contacts/contactsReducer';
 
-function FilterField() {
+export const ContactsFilter = () => {
   const dispatch = useDispatch();
 
   const changeFilter = event => {
@@ -11,17 +11,14 @@ function FilterField() {
   const value = useSelector(state => state.filter);
 
   return (
-    <label className={s.label}>
+    <label>
       <span>Find contacts by name or number</span>
       <input
         type="text"
         name="findField"
-        className={s.input}
         value={value}
         onChange={changeFilter}
       />
     </label>
   );
-}
-
-export default FilterField;
+};

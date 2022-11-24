@@ -1,10 +1,14 @@
 import { useState } from 'react';
-import { useAddContact, useGetContactsQuery } from 'redux/contacts/contactsApi';
+import {
+  useAddContactMutation,
+  useGetContactsQuery,
+} from 'redux/contacts/operations';
 
-const AddContactsForm = () => {
+function AddContactsForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  const [addContact] = useAddContactMutation();
   const { data } = useGetContactsQuery();
 
   const handleSubmit = event => {
@@ -16,7 +20,7 @@ const AddContactsForm = () => {
     if (names.includes(name.toLowerCase())) {
       alert(`${name} is already in contact`);
     } else {
-      useAddContact({ name: name, number: number });
+      addContact({ name: name, number: number });
       reset();
     }
   };
@@ -71,6 +75,6 @@ const AddContactsForm = () => {
       </form>
     </div>
   );
-};
+}
 
 export default AddContactsForm;

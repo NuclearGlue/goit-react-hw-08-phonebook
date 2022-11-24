@@ -2,7 +2,7 @@ import {
   useGetContactsQuery,
   useDeleteContactMutation,
 } from 'redux/contacts/operations';
-import styles from './Contacts.module.css';
+import style from './ContactsList.module.css';
 import { useSelector } from 'react-redux';
 import { findContacts } from 'helpers/filter';
 
@@ -15,7 +15,7 @@ const ContactsList = () => {
     return <h2>Loading...</h2>;
   }
   if (data === undefined) {
-    return <p>text</p>;
+    return <p>Something wrong! Please try again later</p>;
   }
   const contacts = findContacts(data, contactsFilter);
   if (
@@ -26,18 +26,18 @@ const ContactsList = () => {
     return <h2>Please Add Contacts</h2>;
   }
   return (
-    <ul className={styles.list}>
+    <ul className={style.list}>
       {contacts.map(element => {
         return (
-          <li key={element.id} className={styles.item}>
-            <span className={styles.contact}>
-              <span className={styles.name}>{element.name}:</span>
-              <span className={styles.phone}>{element.number}</span>
+          <li key={element.id} className={style.item}>
+            <span className={style.contact}>
+              <span className={style.name}>{element.name}:</span>
+              <span className={style.phone}> {element.number}</span>
             </span>
-            <span className={styles.buttonsBox}>
+            <span className={style.buttonsBox}>
               <button
                 id={element.id}
-                className={styles.button}
+                className={style.button}
                 onClick={() => deleteContacts(element.id)}
               >
                 Delete
