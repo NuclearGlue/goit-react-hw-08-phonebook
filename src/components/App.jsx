@@ -1,37 +1,63 @@
-import LoginForm from './Form/LoginForm';
+import { useEffect } from "react";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes,Route } from "react-router-dom";
+import LoginForm from "./Form/LoginForm/LoginForm";
+import RegisterForm from "./Form/RegisterForm/RegisterForm";
+import NotFound from './NotFound/NotFound';
 import Contacts from './Contacts/Contacts';
-import Filter from './Filter/Filter';
-import RegisterForm from './Form/RegisterForm';
-import { NotFound } from './NotFound.js/NotFound';
-
-import { Routes, Route , Link} from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchContacts } from 'redux/contacts/operations';
-import { getError, getIsLoading } from 'redux/contacts/selectors';
+import { Homepage } from "./Homepage/Homepage";
+import { Header } from "./Header/Header";
+import { fetchCurrentUser } from "redux/user/operations";
 
 export const App = () => {
   const dispatch = useDispatch();
-  // const isLoading = useSelector(getIsLoading);
-  // const error = useSelector(getError);
+  const isFetchingCurrentUser = useSelector(state => state.user.isLoading);
+  const token = useSelector(state => state.user.token);
 
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+    if (!token ) {
+      return;
+    }
+    dispatch(fetchCurrentUser());
+    }, [dispatch, token]);
 
   return (
-    <div>
-      <nav>
-  <Link to="/register">Registraton</Link>
-  <Link to="/login">Log in</Link>
-  <Link to="/contacts">Contacts</Link>
-</nav>
-      <Routes>
-        <Route path="/register" element={<RegisterForm />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/contacts" element={<Contacts />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+    !isFetchingCurrentUser ? (
+      <>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route
+            path="/register"
+            element={
+              <PublicRoute restricted>
+                <RegisterForm />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute restricted navigateTo="/contacts">
+                <LoginForm />
+              </PublicRoute>
+            }
+          />
+
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute navigateTo="/">
+                <Contacts />
+              </PrivateRoute>
+            }
+          />
+          
+        </Routes>
+        
+      </>
+        ):<div className='loader'></div> 
   );
 };

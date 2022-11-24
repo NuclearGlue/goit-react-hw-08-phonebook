@@ -1,45 +1,46 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { nanoid } from 'nanoid';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+export const contactsApi = createApi({
+  reducerPath: 'contactsApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://connections-api.herokuapp.com',
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
+  tagTypes: ['Contact'],
+  endpoints: builder => ({
+    getContacts: builder.query({
+      query: () => `/contacts`,
+      providesTags: ['Contact'],
+    }),
 
-export const fetchContacts = createAsyncThunk(
-  'contacts/fetchAll',
-  async (_, thunkAPI) => {
-    try {
-      const response = await axios.get('/contacts');
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
-  }
-);
+    addContact: builder.mutation({
+      query(newContact) {
+        return {
+          url: `/contacts`,
+          method: 'POST',
+          body: newContact,
+        };
+      },
+      invalidatesTags: ['Contact'],
+    }),
+    deleteContact: builder.mutation({
+      query: contactId => ({
+        url: `/contacts/${contactId}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Contact'],
+    }),
+  }),
+});
 
-export const addContact = createAsyncThunk(
-  'contacts/addContact',
-  async ({ name, number }, thunkAPI) => {
-    try {
-      const response = await axios.post('/contacts', {
-        name,
-        number,
-        id: nanoid(),
-      });
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
-  }
-);
-
-export const deleteContact = createAsyncThunk(
-  'contacts/deleteContact',
-  async (contactId, thunkAPI) => {
-    try {
-      const response = await axios.delete(`/contacts/${contactId}`);
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
-  }
-);
+export const {
+  useGetContactsQuery,
+  useDeleteContactMutation,
+  useAddContactMutation,
+} = contactsApi;

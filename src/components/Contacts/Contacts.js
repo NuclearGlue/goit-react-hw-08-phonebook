@@ -1,32 +1,53 @@
-import React from 'react';
-import AddContactsForm from './AddContactsForm';
+import {
+  useGetContactsQuery,
+  useDeleteContactMutation,
+} from 'redux/contacts/operations';
+import styles from './Contacts.module.css';
 import { useSelector } from 'react-redux';
-import { getContacts, getFilter } from 'redux/contacts/selectors';
+import { findContacts } from 'helpers/filter';
 
-import { Contact } from './Contact';
-const getVisibleContacts = (contacts, filter) => {
-  return contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
+const ContactsList = () => {
+  const { data, isLoading, isError, error } = useGetContactsQuery();
+  const contactsFilter = useSelector(state => state.filter);
+  const [deleteContacts] = useDeleteContactMutation();
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
+  if (data === undefined) {
+    return <p>text</p>;
+  }
+  const contacts = findContacts(data, contactsFilter);
+  if (
+    contacts.length === 0 ||
+    data === undefined ||
+    (isError && error.status === 404)
+  ) {
+    return <h2>Please Add Contacts</h2>;
+  }
+  return (
+    <ul className={styles.list}>
+      {contacts.map(element => {
+        return (
+          <li key={element.id} className={styles.item}>
+            <span className={styles.contact}>
+              <span className={styles.name}>{element.name}:</span>
+              <span className={styles.phone}>{element.number}</span>
+            </span>
+            <span className={styles.buttonsBox}>
+              <button
+                id={element.id}
+                className={styles.button}
+                onClick={() => deleteContacts(element.id)}
+              >
+                Delete
+              </button>
+            </span>
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 
-function Contacts() {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
-  const visibleContacts = getVisibleContacts(contacts, filter);
-
-  return (
-    <>
-      <AddContactsForm />
-      <ul className="contacts__list">
-        {visibleContacts.map(({ name, number, id }) => (
-          <li key={id}>
-            <Contact name={name} number={number} id={id} />
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-}
-
-export default Contacts;
+export default ContactsList;

@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { newUser } from 'redux/user/operations';
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
 
   const dispatch = useDispatch();
 
-  // let names = useSelector(getContacts).map(contact =>
-  //   contact.name.toLowerCase()
-  // );
-
   const handleSubmit = event => {
     event.preventDefault();
+    dispatch(newUser({ name: name, email: email, password: password }));
     reset();
   };
 
   const reset = () => {
     setEmail('');
     setPassword('');
+    setName('');
   };
 
   const handleInputChange = event => {
@@ -26,12 +26,28 @@ const LoginForm = () => {
       setEmail(event.currentTarget.value);
     } else if (event.currentTarget.name === 'password') {
       setPassword(event.currentTarget.value);
+    } else if (event.currentTarget.name === 'name') {
+      setName(event.currentTarget.value);
     }
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <label className="form__label">
+          Name
+          <input
+            className="form__input"
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleInputChange}
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+          />
+        </label>
+
         <label className="form__label">
           Email
           <input
@@ -56,12 +72,12 @@ const LoginForm = () => {
           />
         </label>
 
-        <button className="form__setting-contact" type="submit">
-          Log in
+        <button className="form__button" type="submit">
+          Sign up
         </button>
       </form>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

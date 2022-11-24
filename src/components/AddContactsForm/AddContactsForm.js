@@ -1,26 +1,22 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/contacts/operations';
-import { getContacts } from 'redux/contacts/selectors';
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useAddContact, useGetContactsQuery } from 'redux/contacts/contactsApi';
 
 const AddContactsForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const dispatch = useDispatch();
-
-  let names = useSelector(getContacts).map(contact =>
-    contact.name.toLowerCase()
-  );
+  const { data } = useGetContactsQuery();
 
   const handleSubmit = event => {
     event.preventDefault();
+    const names = data.map(contact => contact.name.toLowerCase());
+    const name = event.target.elements.name.value;
+    const number = event.target.elements.number.value;
 
     if (names.includes(name.toLowerCase())) {
       alert(`${name} is already in contact`);
     } else {
-      dispatch(addContact({ name, number }));
+      useAddContact({ name: name, number: number });
       reset();
     }
   };
