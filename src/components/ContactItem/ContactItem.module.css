@@ -65,6 +65,41 @@
     margin-left: 15px;
 }
 
-.button:hover{
+.button:hover,
+.button:focus{
     background-color: #c41566c9;
+}
+
+.edit_button{
+    font-size: 18px;
+        box-sizing: border-box;
+        padding: 10px 15px;
+        width: 140px;
+        margin-bottom: 30px;
+        background-color: #1a7ada;
+        border: none;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-left: 15px;
+
+}
+
+.edit_button:hover{
+background-color: #c41566c9;
+}
+
+.finish_edit_button{
+    font-size: 18px;
+        box-sizing: border-box;
+        padding: 10px 15px;
+        width: 200px;
+        margin-bottom: 30px;
+        background-color: #1a7ada;
+        border: none;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-left: 15px;
+}
+.finish_edit_button:hover{
+background-color: #c41566c9;
 }

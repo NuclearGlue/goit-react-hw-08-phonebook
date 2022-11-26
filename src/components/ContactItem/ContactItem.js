@@ -26,7 +26,7 @@ export const ContactItem = ({ id, name, phone }) => {
         >
           Delete
         </button>
-        <button className={style.button} onClick={() => changeEdit()}>
+        <button className={style.edit_button} onClick={() => changeEdit()}>
           Edit
         </button>
       </span>

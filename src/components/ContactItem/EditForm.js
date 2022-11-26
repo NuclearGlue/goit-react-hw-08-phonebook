@@ -67,7 +67,7 @@ function AddContactsForm({ contactId, name, phone }) {
           />
         </label>
 
-        <button className={style.button} type="submit">
+        <button className={style.finish_edit_button} type="submit">
           Finish Change
         </button>
       </form>
