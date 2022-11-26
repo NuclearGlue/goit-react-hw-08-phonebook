@@ -28,7 +28,7 @@ export const ContactItem = ({ id, name, phone }) => {
           Delete
         </button>
         <button className={style.edit_button} onClick={() => changeEdit()}>
-          Edit
+          {isEdit ? 'Close' : 'Edit'}
         </button>
       </span>
       {isEdit && <EditFrom contactId={id} name={name} phone={phone} />}
