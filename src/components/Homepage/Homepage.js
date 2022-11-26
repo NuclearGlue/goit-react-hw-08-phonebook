@@ -5,12 +5,7 @@ export const Homepage = () => {
   return (
     <>
       <div className="Homepage">
-        
-        {isLoggedIn ? (
-          <h2>Welcome back!</h2>
-        ) : (
-          <h2>Please log in to continue</h2>
-        )}
+        {isLoggedIn ? <h2>Welcome back!</h2> : <></>}
       </div>
     </>
   );

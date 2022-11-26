@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { newUser } from 'redux/user/operations';
+import style from './RegisterForm.module.css';
 
 const RegisterForm = () => {
   const [email, setEmail] = useState('');
@@ -33,25 +34,23 @@ const RegisterForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label className="form__label">
+      <form onSubmit={handleSubmit} className={style.form}>
+        <label className={style.label}>
           Name
           <input
-            className="form__input"
+            className={style.input}
             type="text"
             name="name"
             value={name}
             onChange={handleInputChange}
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
           />
         </label>
 
-        <label className="form__label">
+        <label className={style.label}>
           Email
           <input
-            className="form__input"
+            className={style.input}
             type="email"
             name="email"
             value={email}
@@ -60,10 +59,10 @@ const RegisterForm = () => {
           />
         </label>
 
-        <label className="form__label">
+        <label className={style.label}>
           Password
           <input
-            className="form__input"
+            className={style.input}
             type="password"
             name="password"
             value={password}
@@ -72,7 +71,7 @@ const RegisterForm = () => {
           />
         </label>
 
-        <button className="form__button" type="submit">
+        <button className={style.button} type="submit">
           Sign up
         </button>
       </form>

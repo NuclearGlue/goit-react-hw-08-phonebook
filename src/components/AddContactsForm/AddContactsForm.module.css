@@ -1,34 +1,29 @@
 
-@media screen and (max-width: 767px) {
-    .form {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
 .form {
     display: flex;
     flex-direction: column;
-    width: fit-content;
-    justify-content: center;
 }
 
+.label {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
 
 .input {
-    margin: 15px;
+    margin-bottom: 30px;
     height: 30px;
     border-radius: 5px;
     width: 250px;
 }
-.label{
-    display: flex;
-    flex-direction: column;
-}
+
 .button {
     font-size: 18px;
     box-sizing: border-box;
     padding: 10px 15px;
-    width: 100px;
+width: 140px;
+        margin-bottom: 30px;
     background-color: #1a7ada;
     border: none;
     cursor: pointer;
@@ -36,7 +31,6 @@
     margin-left: 15px;
 }
 
-.button:hover,
-.button:focus {
+.button:hover {
     background-color: #c41566c9;
 }

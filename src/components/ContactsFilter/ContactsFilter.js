@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { changesFilter } from 'redux/contacts/contactsReducer';
+import style from './ContactsFilter.module.css';
 
 export const ContactsFilter = () => {
   const dispatch = useDispatch();
@@ -11,9 +12,10 @@ export const ContactsFilter = () => {
   const value = useSelector(state => state.filter);
 
   return (
-    <label>
+    <label className={style.label}>
       <span>Find contacts by name or number</span>
       <input
+        className={style.input}
         type="text"
         name="findField"
         value={value}

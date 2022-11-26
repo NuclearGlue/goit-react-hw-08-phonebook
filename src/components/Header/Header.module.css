@@ -1,0 +1,26 @@
+.userMenu {
+    text-align: center;
+}
+
+.headerLink {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    margin-left: 30px;
+    font-size: 24px;
+}
+
+.button {
+    font-size: 18px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    width: 100px;
+    background-color: #1a7ada;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.button:hover,
+.button:focus {
+    background-color: #c41566c9;
+}

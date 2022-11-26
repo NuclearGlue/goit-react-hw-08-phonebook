@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userLogin } from 'redux/user/operations';
-
+import style from './LoginForm.module.css';
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,11 +34,11 @@ const LoginForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label className="form__label">
+      <form onSubmit={handleSubmit} className={style.form}>
+        <label className={style.label}>
           Email
           <input
-            className="form__input"
+            className={style.input}
             type="email"
             name="email"
             value={email}
@@ -47,10 +47,10 @@ const LoginForm = () => {
           />
         </label>
 
-        <label className="form__label">
+        <label className={style.label}>
           Password
           <input
-            className="form__input"
+            className={style.input}
             type="password"
             name="password"
             value={password}
@@ -59,7 +59,7 @@ const LoginForm = () => {
           />
         </label>
 
-        <button className="form__button" type="submit">
+        <button className={style.button} type="submit">
           Log in
         </button>
       </form>
