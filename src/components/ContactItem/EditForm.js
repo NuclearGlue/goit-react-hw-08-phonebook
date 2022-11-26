@@ -3,7 +3,7 @@ import {
   useGetContactsQuery,
   usePatchContactMutation,
 } from 'redux/contacts/operations';
-
+import PropTypes from 'prop-types';
 import style from './ContactItem.module.css';
 
 function AddContactsForm({ contactId, name, phone }) {
@@ -74,5 +74,11 @@ function AddContactsForm({ contactId, name, phone }) {
     </div>
   );
 }
+
+AddContactsForm.propTypes = {
+  contactId: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
+};
 
 export default AddContactsForm;
