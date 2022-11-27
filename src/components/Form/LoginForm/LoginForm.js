@@ -16,12 +16,6 @@ const LoginForm = () => {
         password: password,
       })
     );
-    reset();
-  };
-
-  const reset = () => {
-    setEmail('');
-    setPassword('');
   };
 
   const handleInputChange = event => {

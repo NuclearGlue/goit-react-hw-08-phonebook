@@ -9,6 +9,7 @@ import { Contacts } from "./pages/Contacts";
 import { Homepage } from "./Homepage/Homepage";
 import { Header } from "./Header/Header";
 import { fetchCurrentUser } from "redux/user/operations";
+import { NotFound } from "./NotFound/NotFound";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -16,17 +17,19 @@ export const App = () => {
   const token = useSelector(state => state.user.token);
 
   useEffect(() => {
-    if (!token ) {
+    if (!token) {
       return;
     }
     dispatch(fetchCurrentUser());
-    }, [dispatch, token]);
+  }, [dispatch, token]);
 
   return (
     !isFetchingCurrentUser ? (
       <>
+        
         <Header />
         <Routes>
+          <Route path="*" element={<NotFound />}/>
           <Route path="/" element={<Homepage />} />
           <Route
             path="/register"
@@ -57,6 +60,9 @@ export const App = () => {
         </Routes>
         
       </>
-        ):<div className='loader'></div> 
-  );
+    ) : <div className='loader'></div>
+  )
+  
+    
+   
 };

@@ -22,7 +22,12 @@ export const newUser = createAsyncThunk(
 
       return response.data;
     } catch (e) {
-      console.log(e);
+      if (e.message.includes('400')) {
+        alert('Something wrong! Please chek your data');
+      } else if (e.message.includes('500')) {
+        alert('Server connection error. Please try again later');
+      }
+
       return thunkAPI.rejectWithValue(e.message);
     }
   }
@@ -36,6 +41,12 @@ export const userLogin = createAsyncThunk(
       token.set(response.data.token);
       return response.data;
     } catch (e) {
+      if (e.message.includes('400')) {
+        alert('Something wrong! Please chek your data');
+      } else if (e.message.includes('500')) {
+        alert('Server connection error. Please try again later');
+      }
+
       return thunkAPI.rejectWithValue(e.message);
     }
   }

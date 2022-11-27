@@ -13,13 +13,6 @@ const RegisterForm = () => {
   const handleSubmit = event => {
     event.preventDefault();
     dispatch(newUser({ name: name, email: email, password: password }));
-    reset();
-  };
-
-  const reset = () => {
-    setEmail('');
-    setPassword('');
-    setName('');
   };
 
   const handleInputChange = event => {
